@@ -1,3 +1,4 @@
+import { signIn } from "@/auth";
 import { RiTwitterXFill } from "react-icons/ri";
 import { RiGoogleFill } from "react-icons/ri";
 
@@ -15,8 +16,13 @@ export default function Login (){
                         </button>
                     </form>
                     <p className="mt-2 text-gray-700 text-center">Or signup with</p>
-                    <form>
-                        <button className="w-full h-11 bg-red-300 rounded-full flex justify-center items-center gap-3">
+                     <form 
+                      action={ async ()=>{
+                            "use server"
+                            await signIn("google")
+                      }}
+                    >
+                        <button className="w-full h-11 bg-red-300 rounded-full cursor-pointer flex justify-center items-center gap-3">
                             <RiGoogleFill className="text-2xl text-white" />
                             <span className="text-xl text-white">Google</span>
                         </button>
