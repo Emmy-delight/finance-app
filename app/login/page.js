@@ -1,10 +1,13 @@
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { RiTwitterXFill } from "react-icons/ri";
 import { RiGoogleFill } from "react-icons/ri";
 
-export default function Login (){
+export default async function Login (){
+    const session = await auth();
+    console.log(session);
+    
     return(
-        <main className="min-h-screen flex justify-center px-20 py-10 ">
+        <main className="min-h-screen flex justify-center items-center px-20 ">
             <div className="w-full md:w-100 md:flex md:flex-col md:gap-3">
                 <h1 className="font-bold text-center text-gray-700 md:text-2xl md:text-gray-700 md:font-bold md:text-center">Welcome to Finance App</h1>
                 <p className="text-sm text-gray-400 text-center">Finance Management App</p>

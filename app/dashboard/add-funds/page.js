@@ -1,6 +1,9 @@
     "use client"
+import { db } from "@/config/firebase.config";
 import { Card, CardContent, CardHeader, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { addDoc, collection } from "firebase/firestore";
 import { useFormik } from "formik";
+import { useSession } from "next-auth/react";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
@@ -10,14 +13,30 @@ const schema = yup.object().shape({
 });
 
 export default function AddFunds (){
+    const {data : session} =  useSession();
+    console.log(session)
+    
    const {handleSubmit,handleChange,values,errors,touched} = useFormik({
     initialValues:{
        amount: "",
        category: "",
        description: "",
     },
-    onSubmit:()=>{
-        alert(`I have deposited ₦ ${values.amount} for my ${values.category} `);
+    onSubmit:async (values,{resetForm})=>{
+         try{
+            await addDoc(collection(db,"transactions"),{
+                 user: session?.user?.id,
+                amount: values.amount,
+                category: values.category,
+                description: values.description,
+                timeCreated: new Date(),
+            })
+            alert("funds added successfully");
+            resetForm()
+         }
+         catch (errors){
+            console.error("Unable to add funds:", errors)
+         }
     },
     validationSchema:schema,
    })
