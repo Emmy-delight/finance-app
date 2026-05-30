@@ -1,11 +1,13 @@
 import { auth, signIn } from "@/auth";
+import { redirect } from "next/navigation";
 import { RiTwitterXFill } from "react-icons/ri";
 import { RiGoogleFill } from "react-icons/ri";
 
 export default async function Login (){
-    const session = await auth();
-    console.log(session);
-    
+    const session = await auth();     
+    if(session){
+        redirect("/")
+    }
     return(
         <main className="min-h-screen flex justify-center items-center px-20 ">
             <div className="w-full md:w-100 md:flex md:flex-col md:gap-3">
@@ -22,7 +24,7 @@ export default async function Login (){
                      <form 
                       action={ async ()=>{
                             "use server"
-                            await signIn("google")
+                            await signIn("google");
                       }}
                     >
                         <button className="w-full h-11 bg-red-300 rounded-full cursor-pointer flex justify-center items-center gap-3">
