@@ -34,7 +34,8 @@ export default function AddFunds (){
             setLoading(true)
             await addDoc(collection(db,"transactions"),{
                  user: session?.user?.id,
-                amount: values.amount,
+                 type: "deposit",
+                 amount:Number( values.amount),
                 category: values.category,
                 description: values.description,
                 timeCreated: new Date(),
@@ -126,3 +127,4 @@ export default function AddFunds (){
         </main>
     )
 }
+
