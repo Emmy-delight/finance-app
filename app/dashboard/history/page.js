@@ -43,7 +43,7 @@ export default function History() {
 
     const q = query(
       collection(db, "transactions"),
-      where("userId", "==", session.user.id)
+      where("user", "==", session.user.id)
     );
 
     return onSnapshot(q, (snapshot) => {
@@ -106,7 +106,6 @@ export default function History() {
 
   const handleDelete = async () => {
     if (!deleteId) return;
-
     try {
       setDeleting(true);
       await deleteDoc(doc(db, "transactions", deleteId));
@@ -117,9 +116,9 @@ export default function History() {
   };
 
   const cards = [
-    ["Balance", balance, balance >= 0 ? "bg-blue-700" : "bg-red-600"],
+    ["Balance", balance, balance > 0 ? "bg-blue-700" : "bg-red-600"],
     ["Deposits", totals.deposits, "bg-green-600"],
-    ["Withdrawn", totals.withdrawals, "bg-red-500"],
+    ["Withdrawn", totals.withdrawals, "bg-red-600"],
   ];
 
   return (
@@ -255,3 +254,4 @@ export default function History() {
     </main>
   );
 }
+//tracks.earlycode.net

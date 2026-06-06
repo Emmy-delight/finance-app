@@ -4,6 +4,7 @@ import { Button, Card, CardContent, CardHeader, Dialog, DialogActions, DialogCon
 import { addDoc, collection, doc, onSnapshot, query, where } from "firebase/firestore";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as yup from "yup";
 
@@ -12,6 +13,10 @@ const [balance ,setBalance] = useState(0);
 const [loading, setLoading] = useState(false);
 const [open,setOpen] = useState(false);
 const {data : session} = useSession();
+ 
+if(!session){
+  redirect("/login")
+};
 
    //making balance available
    useEffect(()=>{
@@ -21,7 +26,7 @@ const {data : session} = useSession();
      const unsubscribe =  onSnapshot(q,(snapshot)=>{
       const transactions = snapshot.docs.map((doc)=>doc.data());
 
-      const totalDeposits = transactions.filter((t)=> t.type === "deposits" || !t.type)
+      const totalDeposits = transactions.filter((t)=> t.type === "deposit" || !t.type)
       .reduce((sum,t)=> sum + Number(t.amount), 0);
 
       const totalWithdrawals = transactions.filter((t)=> t.type === "withdrawal")
