@@ -31,7 +31,7 @@ const toggleMenu = ()=> setDropDown(!dropDown);
                 <ul className="text-gray-800 flex flex-col gap-3 text-sm">
                     <Link href="/dashboard/add-funds"><li className="hover:text-[#1D4ED8]">Add Funds</li></Link>
                     <Link href="/dashboard/withdraw"><li className="hover:text-[#1D4ED8] ">Withdraw</li></Link>
-                    <Link href="/dashboa[rd/history"><li className="hover:text-[#1D4ED8] ">History</li></Link>
+                    <Link href="/dashboard/history"><li className="hover:text-[#1D4ED8] ">History</li></Link>
                     <Link href="/dashboard/profile"><li className="hover:text-[#1D4ED8] ">Profile</li></Link> 
                 </ul>
                 <Link href="/login"><div>
